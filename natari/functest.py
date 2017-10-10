@@ -6,7 +6,7 @@ import time, unittest
 
 class NewVisitorTest(unittest.TestCase):
     def setUp(self):
-        self.browser = webdriver.Firefox()
+        self.browser = webdriver.Chrome()
 
     def tearDown(self):
         self.browser.quit()
@@ -15,10 +15,13 @@ class NewVisitorTest(unittest.TestCase):
         # USER opens up a terminal and goes to the BRF website
         self.browser.get('http://localhost:8000')
 
-        # The home page welcomes USER and has two buttons, one to register and one to login
+        # The home page welcomes USER and has two forms, one to register and one to login
         self.assertIn('BRF', self.browser.title)
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertIn('BRF', header_text)
+        self.assertIn('Login', header_text)
+        self.assertIn('SignUp', header_text)
+
 
         # When USER clicks on the register button, a form opens up
         self.fail('Finish the test!')
