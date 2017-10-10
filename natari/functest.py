@@ -15,14 +15,15 @@ class NewVisitorTest(unittest.TestCase):
         # USER opens up a terminal and goes to the BRF website
         self.browser.get('http://localhost:8000')
 
-        # The home page welcomes USER and has two forms, one to register and one to login
+        # The home page welcomes USER and displays signup form with link up top for login form
         self.assertIn('BRF', self.browser.title)
-        header_text = self.browser.find_element_by_tag_name('h1').text
+        header_text = self.browser.find_element_by_tag_name('header').text
         self.assertIn('BRF', header_text)
         self.assertIn('Login', header_text)
         self.assertIn('SignUp', header_text)
 
-
+        form_button = self.browser.find_element_by_tag_name('form').text
+        self.assertIn('Register', form_button)
         # When USER clicks on the register button, a form opens up
         self.fail('Finish the test!')
 
