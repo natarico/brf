@@ -72,8 +72,15 @@ def move(request, player):
         winner = roach_fight(request,player,user1,user2)
     elif user1 == options[2]:
         # if the user selected foot
-        # winner = foot_fight(request,plater,user1,user2)
-        pass
+        winner = foot_fight(request,player,user1,user2)
+    elif user1 == options[0]:
+        # if the user selected bomb
+        if user2 == options[0]:
+            # if comp also selects bomb, game ends
+            # resets but does not redirect!!!
+            return endgame(request)
+        else:
+            winner = bomb_fight(request,player,user1,user2)
     print(winner)
 
 def roach_fight(request,player,user1,user2):
@@ -82,6 +89,7 @@ def roach_fight(request,player,user1,user2):
         # and the computer also played ROACH, randomise who gets double points
         if flip_coin() == 0:
             winner = "user1"
+            add_pts(request)
             add_pts(request)
             print('r-r: win, add pts')
         else:
@@ -113,4 +121,77 @@ def roach_fight(request,player,user1,user2):
             winner = "user1"
             add_pts(request)
             print('r-f: win, add pts')
+    return winner
+
+def foot_fight(request,player,user1,user2):
+    # if the user selected foot
+    if user2 == options[1]:
+        # and the computer played ROACH,
+        if flip_coin() == 0:
+            #foot squishes roach
+            winner = "user1"
+            add_pts(request)
+            print('f-r: win, add pts')
+        else:
+            #roach bites the foot
+            winner = "user2"
+            sickness(request)
+            print('f-r: lose, lose health')
+    elif user2 == options[0]:
+        #and the computer plays bomb, randomise if bomb mutates foot or kills it
+        if flip_coin() == 0:
+            #foot lives!!!
+            winner = "user1"
+            if player.health > 2:
+                nuclearize(request)
+            add_pts(request)
+            print('f-b: win, add pts, maybe nuclear if healthy')
+        else:
+            #foot harmed
+            winner = "user2"
+            sickness(request)
+            print('f-b: lose, lose health')
+    elif user2 == options[2]:
+        #and the computer plays foot, randomise foot interactions
+        if flip_coin() == 0:
+            #feet get along
+            winner = "user1"
+            add_pts(request)
+            add_pts(request)
+            print('f-f: win, dbl pts')
+        else:
+            #feet do not get along
+            winner = "user2"
+            print('f-f: lose, none')
+    return winner
+
+def bomb_fight(request,player,user1,user2):
+    # if the user selected bomb
+    # if user2 == options[0]:
+    #     # and the computer also played bomb, game ends
+    #     return redirect(reverse('play:endgame'))
+    if user2 == options[1]:
+        #and the computer plays roach, randomise if roach survives or bomb lands directly on it
+        if flip_coin() == 0:
+            #roach lives!!!
+            winner = "user2"
+            sickness(request)
+            print('b-r: lose, lose health')
+        else:
+            #bomb lands on roach
+            winner = "user1"
+            add_pts(request)
+            print('b-r: win, add pts')
+    elif user2 == options[2]:
+        #and the computer plays foot, randomise if foot mutates
+        if flip_coin() == 0:
+            #foot mutates
+            winner = "user2"
+            sickness(request)
+            print('b-f: lose, lose health')
+        else:
+            #bomb kills the foot
+            winner = "user1"
+            add_pts(request)
+            print('b-f: win, add pts')
     return winner
