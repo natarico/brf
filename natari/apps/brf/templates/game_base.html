@@ -8,10 +8,12 @@
 </head>
 <body>
     <header>
-        <!-- <h1>Welcome to BRF</h1>
-        <a href='{% url 'login' %}'>Login</a>
-        <a href='{% url 'sign_up' %}'>SignUp</a>
-        <hr> -->
+        <h1>You're logged in!</h1>
+        <a href='{% url 'logout' %}'>LogOut</a>
+        <a href='{% url 'profile' %}'>Profile</a>
+        <a href='{% url 'dash' %}'>Dashboard</a>
+        
+        <hr>
     </header>
     <main>
         {% block content %}

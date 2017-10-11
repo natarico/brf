@@ -25,20 +25,26 @@ class NewVisitorTest(unittest.TestCase):
         form_button = self.browser.find_element_by_tag_name('form').text
         self.assertIn('Register', form_button)
 
-        # USER enters their name, a username, an email and a password and confirmation. The user clicks the register button again and is redirected to a survey asking for weather preference.
+        # USER enters their name, a username, an email and a password and confirmation. The user clicks the register button again and is redirected to a survey asking for weather preference and city.
         inputbox = self.browser.find_element_by_id('id_username')
-        inputbox.send_keys('testuser5')
+        inputbox.send_keys('testuser3')
         inputbox = self.browser.find_element_by_id('id_password1')
         inputbox.send_keys('123456789z')
         inputbox = self.browser.find_element_by_id('id_password2')
         inputbox.send_keys('123456789z')
         self.browser.find_element_by_id('reg').click()
         time.sleep(1)
-        page = self.browser.find_element_by_tag_name('h1').text
-        self.assertIn('Survey', page)
+        page = self.browser.find_element_by_tag_name('h2').text
+        self.assertIn('Personalize', page)
 
-        # USER chooses rainy from a drop down menu and clicks on the submit button.
-
+        # USER chooses rainy, adds Seattle as their city and clicks on the submit button.
+        inputbox = self.browser.find_element_by_id('id_city')
+        inputbox.send_keys('Seattle')
+        self.browser.find_element_by_id('survey').click()
+        time.sleep(1)
+        page = self.browser.find_element_by_tag_name('h3').text
+        self.assertIn('Dashboard', page)
+        
         # USER is redirected to a dashboard showing the top 10 high scores. Towards the top of the page, a navigation bar had links to the profile, as well as the game and to log out. On the right side of the page is a list of online players.
         self.fail('Finish the test!')
 
