@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
+from apps.play.models import GameStats
 from .forms import *
 from .models import *
 import bcrypt
@@ -42,7 +43,11 @@ def dashboard(request):
     return render(request, 'home.html', context)
 
 def profile(request):
-    return render(request, 'profile.html')
+    player = GameStats.objects.get(user=request.user)
+    context = {
+        'player': player,
+    }
+    return render(request, 'profile.html',context)
 
 def hospital(request):
     # url = 'http://api.openweathermap.org/data/2.5/weather?q=Seattle'

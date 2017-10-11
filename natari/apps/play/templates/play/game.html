@@ -1,0 +1,20 @@
+{% extends 'game_base.html' %}
+{% block content %}
+
+<button type="button" name="howto">How To Play</button>
+<div class="status">
+  <p>Health: {{ player.health }}</p>
+  <p>Score: {{ player.points }}</p>
+  <p>Twinkies: {{ player.twinkies }}</p>
+  <p>Nuclear: {{ player.nuclear }}</p>
+  <p>{{ opponent }}</p>
+</div>
+<h1>BOMB ROACH FOOT DANCE!</h1>
+<form class="game" method="POST">
+  {% csrf_token %}
+  <input type="submit" name="move" value="ROACH">
+  <input type="submit" name="move" value="FOOT">
+  <input type="submit" name="move" value="NUCLEAR BOMB">
+</form>
+
+{% endblock %}

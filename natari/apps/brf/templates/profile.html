@@ -2,5 +2,13 @@
 
 {% block content %}
 <h2>Profile</h2>
-<h4>Hi {{user}}</h4>
+<h4>Hi {{ user }}</h4>
+
+<div class="status">
+  <h4>Current Status!</h4>
+  <p>Health: {{ player.health }}</p>
+  <p>Score: {{ player.points }}</p>
+  <p>Twinkies: {{ player.twinkies }}</p>
+  <p>Nuclear: {{ player.nuclear }}</p>
+</div>
 {% endblock %}
