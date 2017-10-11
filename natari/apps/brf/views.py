@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
+from apps.play.models import GameStats
 from .forms import *
 from .models import *
 import bcrypt
@@ -26,7 +27,6 @@ def survey(request):
         form = ProfileForm(request.POST)
         if form.is_valid():
             profile = User.objects.get(id = request.user.id)
-            print request.user.id
             profile.city = form.cleaned_data.get('city')
             profile.weather = form.cleaned_data.get('weather')
             profile.save()
@@ -38,14 +38,20 @@ def survey(request):
 def dashboard(request):
     context = {
         'users_online' : User.objects.all(),
+        'high_scores' : User.objects.all().order_by("-profile__high_score")[:3]
     }
+    print(context['high_scores'])
     return render(request, 'home.html', context)
-    
+
 def profile(request):
-    return render(request, 'profile.html')
+    player = GameStats.objects.get(user=request.user)
+    context = {
+        'player': player,
+    }
+    return render(request, 'profile.html',context)
 
 def hospital(request):
-    url = 'http://api.openweathermap.org/data/2.5/weather?q=Seattle'
-    r = requests.get(url)
-    print r
+    # url = 'http://api.openweathermap.org/data/2.5/weather?q=Seattle'
+    # r = requests.get(url)
+    # print r
     return render(request, 'hospital.html')
