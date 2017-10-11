@@ -25,6 +25,22 @@ def sickness(request):
     userstats = GameStats.objects.get(user=request.user.id)
     userstats.health-= 1
     userstats.save()
+    if userstats.health == 0:
+        endgame(request)
+
+def endgame(request):
+    print("we're ending the game")
+    player = User.objects.get(id=request.user.id).profile
+    highscore = player.high_score
+    print("old high score:", highscore)
+    currscore = GameStats.objects.get(user=request.user).points
+    player.games_played+=1
+    if highscore < currscore:
+        player.high_score=currscore
+        print("new high score: ", player.high_score)
+        player.save()
+    return redirect(reverse('dash'))
+
 
 # Create your views here.
 def base(request):

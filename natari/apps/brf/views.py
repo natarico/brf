@@ -40,6 +40,7 @@ def dashboard(request):
         'users_online' : User.objects.all(),
         'high_scores' : User.objects.all().order_by("-profile__high_score")[:3]
     }
+    print(context['high_scores'])
     return render(request, 'home.html', context)
 
 def profile(request):

@@ -2,6 +2,7 @@
 {% block content %}
 
 <button type="button" name="howto">How To Play</button>
+<a href="{% url 'play:endgame' %}">End Game</a>
 <div class="status">
   <p>Health: {{ player.health }}</p>
   <p>Score: {{ player.points }}</p>
