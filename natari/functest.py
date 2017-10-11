@@ -6,7 +6,7 @@ import time, unittest
 
 class NewVisitorTest(unittest.TestCase):
     def setUp(self):
-        self.browser = webdriver.Firefox()
+        self.browser = webdriver.Chrome()
 
     def tearDown(self):
         self.browser.quit()
@@ -15,19 +15,38 @@ class NewVisitorTest(unittest.TestCase):
         # USER opens up a terminal and goes to the BRF website
         self.browser.get('http://localhost:8000')
 
-        # The home page welcomes USER and has two buttons, one to register and one to login
+        # The home page welcomes USER and displays signup form with link up top for login form
         self.assertIn('BRF', self.browser.title)
-        header_text = self.browser.find_element_by_tag_name('h1').text
+        header_text = self.browser.find_element_by_tag_name('header').text
         self.assertIn('BRF', header_text)
+        self.assertIn('Login', header_text)
+        self.assertIn('SignUp', header_text)
 
-        # When USER clicks on the register button, a form opens up
-        self.fail('Finish the test!')
+        form_button = self.browser.find_element_by_tag_name('form').text
+        self.assertIn('Register', form_button)
 
-        # USER enters their name, a username, an email and a password and confirmation. The user clicks the register button again and is redirected to a survey asking for weather preference.
+        # USER enters their name, a username, an email and a password and confirmation. The user clicks the register button again and is redirected to a survey asking for weather preference and city.
+        inputbox = self.browser.find_element_by_id('id_username')
+        inputbox.send_keys('testuser3')
+        inputbox = self.browser.find_element_by_id('id_password1')
+        inputbox.send_keys('123456789z')
+        inputbox = self.browser.find_element_by_id('id_password2')
+        inputbox.send_keys('123456789z')
+        self.browser.find_element_by_id('reg').click()
+        time.sleep(1)
+        page = self.browser.find_element_by_tag_name('h2').text
+        self.assertIn('Personalize', page)
 
-        # USER chooses rainy from a drop down menu and clicks on the submit button.
-
+        # USER chooses rainy, adds Seattle as their city and clicks on the submit button.
+        inputbox = self.browser.find_element_by_id('id_city')
+        inputbox.send_keys('Seattle')
+        self.browser.find_element_by_id('survey').click()
+        time.sleep(1)
+        page = self.browser.find_element_by_tag_name('h3').text
+        self.assertIn('Dashboard', page)
+        
         # USER is redirected to a dashboard showing the top 10 high scores. Towards the top of the page, a navigation bar had links to the profile, as well as the game and to log out. On the right side of the page is a list of online players.
+        self.fail('Finish the test!')
 
 
         # USER clicks on the link to their profile and are redirected to a page listing their full name, their username, location, high score (currently zero), how many matches they've played (zero for now), and how many games they've played (also zero). On the right, there's a box showing the current status - 5 health bars, 0 points, and 0 twinkies. Below the box, a button to resume game is greyed out. Towards the bottom of the page is a button to start a new game.
