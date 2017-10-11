@@ -39,6 +39,12 @@ def endgame(request):
         player.high_score=currscore
         print("new high score: ", player.high_score)
         player.save()
+    curr = GameStats.objects.get(user=request.user)
+    curr.health = 5
+    curr.points = 0
+    curr.twinkies = 0
+    curr.nuclear = False
+    curr.save()
     return redirect(reverse('dash'))
 
 
