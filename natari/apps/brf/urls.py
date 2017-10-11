@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^survey/$', views.survey, name='survey'),
     url(r'^dashboard/$', views.dashboard, name='dash'),
     url(r'^profile/$', views.profile, name='profile'),
+    url(r'^heal/$', views.hospital, name='hospital'),
     
 
 ]

@@ -4,6 +4,7 @@ from django.contrib.auth import login, authenticate
 from .forms import *
 from .models import *
 import bcrypt
+import requests
 
 # Create your views here.
 def sign_up(request):
@@ -42,3 +43,9 @@ def dashboard(request):
     
 def profile(request):
     return render(request, 'profile.html')
+
+def hospital(request):
+    url = 'http://api.openweathermap.org/data/2.5/weather?q=Seattle'
+    r = requests.get(url)
+    print r
+    return render(request, 'hospital.html')
