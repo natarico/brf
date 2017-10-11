@@ -33,6 +33,7 @@ LOGIN_REDIRECT_URL = 'dash'
 # Application definition
 
 INSTALLED_APPS = [
+    'apps.play',
     'apps.brf',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -13,7 +13,7 @@
 <table>
     <tr>
         <td>{{ user.username}}</td>
-        <td>{{ user.profile.high_score}}</td>                      
+        <td>{{ user.profile.high_score}}</td>
     </tr>
 {% endfor %}
 </table>
@@ -23,13 +23,10 @@
         <th>Username</th>
         <th>High Score</th>
     </tr>
-</table>
 {% for score in scores %}
-<table>
     <tr>
-        <td>{{ user.username}}</td>
-        <td>{{ user.profile.high_score}}</td>  
-        <td>{{ user.profile.city}}</td>                              
+        <td>{{ score.username}}</td>
+        <td>{{ score.profile.high_score}}</td>
     </tr>
 {% endfor %}
     </table>

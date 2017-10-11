@@ -26,7 +26,6 @@ def survey(request):
         form = ProfileForm(request.POST)
         if form.is_valid():
             profile = User.objects.get(id = request.user.id)
-            print request.user.id
             profile.city = form.cleaned_data.get('city')
             profile.weather = form.cleaned_data.get('weather')
             profile.save()
@@ -38,14 +37,15 @@ def survey(request):
 def dashboard(request):
     context = {
         'users_online' : User.objects.all(),
+        'high_scores' : User.objects.all().order_by("-profile__high_score")[:3]
     }
     return render(request, 'home.html', context)
-    
+
 def profile(request):
     return render(request, 'profile.html')
 
 def hospital(request):
-    url = 'http://api.openweathermap.org/data/2.5/weather?q=Seattle'
-    r = requests.get(url)
-    print r
+    # url = 'http://api.openweathermap.org/data/2.5/weather?q=Seattle'
+    # r = requests.get(url)
+    # print r
     return render(request, 'hospital.html')
