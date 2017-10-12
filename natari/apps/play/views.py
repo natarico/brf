@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from .models import *
 import random
 
+# helper functions
 options = [
 "NUCLEAR BOMB",
 "ROACH",
