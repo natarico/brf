@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PacMan</title>
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/script.js'%}"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <div id="world"></div>
+    <div id="pacman"></div>
+    <div id="dead">
+      <p>Oh no! The ghosty got you! You are dead!</p>
+      <p>Try again?</p>
+      <button id="playagain" type="button" name="button">Continue...</button>
+    </div>
+    <div id="score">0</div>
+  </body>
+</html>

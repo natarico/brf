@@ -29,10 +29,12 @@ ALLOWED_HOSTS = []
 
 LOGIN_REDIRECT_URL = 'dash'
 
+STATIC_URL = '/static/'
 
 # Application definition
 
 INSTALLED_APPS = [
+    'apps.heal',
     'apps.play',
     'apps.brf',
     'django.contrib.admin',
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'fluentcms_countdown',
 ]
 
 MIDDLEWARE = [

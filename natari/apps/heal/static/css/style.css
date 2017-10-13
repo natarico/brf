@@ -1,0 +1,72 @@
+body {
+  background: black;
+  margin:0;
+  padding: 0;
+  font-size: 0;
+}
+div.row {
+  background: black;
+}
+div.row div{
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  border: 1px solid black;
+}
+div.brick {
+  background-color: green;
+}
+div.coin {
+  background: url('../img/coin.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+div#pacman {
+  background: url('../img/pacman.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+}
+div#score {
+  border: 1px solid white;
+  width: 30px;
+  height: 30px;
+  padding: 10px;
+  font-size: 14px;
+  font-family: monospace;
+  color: white;
+  text-align: center;
+}
+div.empty{
+  background: url('../img/bg.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+div.ghost{
+  background: url('../img/ghost.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+div#dead {
+  background: red;
+  border: 10px dotted white;
+  color: white;
+  font-family: monospace;
+  font-size: 14px;
+  text-align: center;
+  vertical-align: top;
+  width: 143px;
+  height: 99px;
+  position: absolute;
+  top: 50px;
+  left: 28px;
+  display: none;
+}
+div#dead p {
+  margin: 0;
+}

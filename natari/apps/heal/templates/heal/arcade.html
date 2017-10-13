@@ -1,0 +1,10 @@
+{% extends 'game_base.html' %}
+
+{% block content %}
+<iframe src="{% url 'health:pacman' %}" width="250" height="300"></iframe>
+<form action="{% url 'play:healed' %}" method="post">
+  {% csrf_token %}
+  Feeling better?
+  <input type="submit" value="Yes">
+</form>
+{% endblock %}
