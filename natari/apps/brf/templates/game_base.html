@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BRF</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>$(document).ready(function(){
+        $(console.log("jQuery what up!"));
+        $('button').click(function(){
+            alert("Good click!");
+        })
+    });
+        </script>
+</head>
+<body>
+    <header>
+        <h1>You're logged in!</h1>
+        <a href='{% url 'logout' %}'>LogOut</a>
+        <a href='{% url 'profile' %}'>Profile</a>
+        <a href='{% url 'dash' %}'>Dashboard</a>
+        <a href='{% url 'play:base' %}'>Play</a>
+        <hr>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

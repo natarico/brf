@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BRF</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>$(document).ready(function(){
+        $(console.log("jQuery what up!"));
+        $('button.click').click(function(){
+            alert("Instructions for how to play this game!");
+        });
+        (function pointValue(){
+          if(value {{ player.health }} > 1945){
+            alert("Nuclear access!")
+          }
+          else{
+            setTimeout(pointValue, 1000);
+          }
+        });
+    });
+        </script>
+</head>
+<body>
+    <header>
+        <h1>You're logged in!</h1>
+        <a href='{% url 'logout' %}'>LogOut</a>
+        <a href='{% url 'profile' %}'>Profile</a>
+        <a href='{% url 'dash' %}'>Dashboard</a>
+        <a href='{% url 'play:base' %}'>Play</a>
+        <hr>
+    </header>
+    <main>
+<button type="button" class="click" name="howto">How To Play</button>
+<a href="{% url 'play:endgame' %}">End Game</a>
+<div class="status">
+  <p>Health: {{ player.health }}</p>
+  <p>Score: {{ player.points }}</p>
+  <p>Twinkies: {{ player.twinkies }}</p>
+  <p>Nuclear: {{ player.nuclear }}</p>
+  <p>{{ opponent }}</p>
+</div>
+<h1>BOMB ROACH FOOT DANCE!</h1>
+<form class="game" method="POST">
+  {% csrf_token %}
+  <input type="submit" name="move" value="ROACH">
+  <input type="submit" name="move" value="FOOT">
+  <input type="submit" name="move" value="NUCLEAR BOMB">
+</form>
+</main>
+</body>
+</html>

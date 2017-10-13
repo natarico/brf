@@ -1,0 +1,12 @@
+{% extends 'game_base.html' %}
+{% block content %}
+<div class="status">
+    <p>Health: {{ player.health }}</p>
+    <p>Score: {{ player.points }}</p>
+    <p>Twinkies: {{ player.twinkies }}</p>
+</div>
+<h1>Hospital</h1>
+<p>Looks like it's {{weather}} in {{city}}.</p>
+<p>Count Down for each health bar</p>
+<a href='{% url 'play:base' %}'>Resume Current Game</a>
+{% endblock %}
