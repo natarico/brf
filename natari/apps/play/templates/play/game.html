@@ -5,17 +5,34 @@
 <a href="{% url 'play:endgame' %}">End Game</a>
 <div class="status">
   <p>Health: {{ player.health }}</p>
+  <form action="{% url 'health:healup' %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="heal">
+  </form>
   <p>Score: {{ player.points }}</p>
   <p>Twinkies: {{ player.twinkies }}</p>
   <p>Nuclear: {{ player.nuclear }}</p>
   <p>{{ opponent }}</p>
 </div>
 <h1>BOMB ROACH FOOT DANCE!</h1>
+<div class="message">
+  <p>{{ request.session.message }}</p>
+</div>
 <form class="game" method="POST">
   {% csrf_token %}
   <input type="submit" name="move" value="ROACH">
   <input type="submit" name="move" value="FOOT">
-  <input type="submit" name="move" value="NUCLEAR BOMB">
+  <input type="submit" name="move" value="NUCLEAR BOMB" {{ disabled}}>
 </form>
 
+<script>
+  $(document).ready(function(){
+    $('.message').hide();
+    $('input[value="NUCLEAR BOMB"]').on('click','.message', function(e){
+      if($(this).children().val() != ""){
+        $(this).show(10000);
+      }
+    })
+  })
+</script>
 {% endblock %}

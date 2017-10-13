@@ -17,6 +17,12 @@ def add_pts(request):
     userstats.points += 105
     userstats.save()
 
+def healed(request):
+    userstats = GameStats.objects.get(user=request.user.id)
+    userstats.health=5
+    userstats.save()
+    return redirect(reverse('play:base'))
+
 def nuclearize(request):
     userstats = GameStats.objects.get(user=request.user.id)
     userstats.nuclear = True
@@ -30,6 +36,11 @@ def sickness(request):
         endgame(request)
 
 def endgame(request):
+    curr = GameStats.objects.get(user=request.user)
+    if curr.health > 0:
+        result = 'bombsquad'
+    else:
+        result = 'death'
     print("we're ending the game")
     player = User.objects.get(id=request.user.id).profile
     highscore = player.high_score
@@ -40,12 +51,15 @@ def endgame(request):
         player.high_score=currscore
         print("new high score: ", player.high_score)
         player.save()
-    curr = GameStats.objects.get(user=request.user)
     curr.health = 5
     curr.points = 0
     curr.twinkies = 0
     curr.nuclear = False
     curr.save()
+    if result == 'bombsquad':
+        request.session['message'] = "Nuke hit nuke, the world is gone. Play again?"
+    else:
+        request.session['message'] = "You've died, but you get another chance at life. Play again?"
     return redirect(reverse('dash'))
 
 
@@ -53,9 +67,14 @@ def endgame(request):
 def base(request):
     player = GameStats.objects.get(user=request.user)
     opponent = 'Mr.Roboto'
+    if player.points > 1945:
+        disabled = ''
+    else:
+        disabled = 'disabled'
     context = {
         'player': player,
         'opponent': opponent,
+        'disabled': disabled,
     }
     if request.method == "POST":
         move(request, player)
@@ -63,6 +82,7 @@ def base(request):
     return render(request, 'play/game.html', context)
 
 def move(request, player):
+    request.session['message']=''
     # if user2 == None:
         # if playing against computer, user2 will not be passed so generate a play
     user2 = options[random.randint(0,2)]

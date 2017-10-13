@@ -1,0 +1,15 @@
+{% extends 'game_base.html' %}
+{% block content %}
+<div class="status">
+    <p>Health: {{ player.health }}</p>
+    <p>Score: {{ player.points }}</p>
+    <p>Twinkies: {{ player.twinkies }}</p>
+</div>
+<h1>Hospital</h1>
+<p>Looks like it's {{weather}} in {{city}}.</p>
+<form action="{% url 'play:healed' %}" method="post">
+  {% csrf_token %}
+  Feeling better?
+  <input type="submit" value="Yes">
+</form>
+{% endblock %}

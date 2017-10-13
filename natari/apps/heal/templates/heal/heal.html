@@ -1,0 +1,11 @@
+{% extends 'game_base.html' %}
+{% block content %}
+<div class="status">
+    <p>Health: {{ player.health }}</p>
+    <p>Score: {{ player.points }}</p>
+    <p>Twinkies: {{ player.twinkies }}</p>
+</div>
+<p>Time to heal up! <a href='{% url 'health:arcade' %}'> Arcade</a> or <a href='{% url 'health:hospital' %}'>Resting in the hospital</a></p>
+
+<a href='{% url 'play:base' %}'>Resume Current Game</a>
+{% endblock %}
